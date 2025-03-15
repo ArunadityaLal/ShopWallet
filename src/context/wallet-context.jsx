@@ -5,26 +5,22 @@ import { createContext, useContext, useEffect, useState } from "react"
 // Create the context with a default value
 const WalletContext = createContext(undefined)
 
-// Category percentages configuration
 const CATEGORY_PERCENTAGES = {
   "Electronics": 10,
   "Grocery": 2,
   "Clothing": 7,
-  default: 5, // Default percentage if category not found
 }
 
 export function WalletProvider({ children }) {
-  const INITIAL_BALANCE = 1000 // ✅ Always reset balance to 1000 on reload
+  const INITIAL_BALANCE = 1000 
   const [balance, setBalance] = useState(INITIAL_BALANCE)
   const [transactions, setTransactions] = useState([])
 
-  // ✅ Reset wallet balance and clear transactions on page reload
   useEffect(() => {
     setBalance(INITIAL_BALANCE)
-    setTransactions([]) // ✅ Ensures transaction history is empty on reload
+    setTransactions([]) 
   }, [])
 
-  // ✅ Properly adds cashback to wallet
   const addCashback = (amount, description, category) => {
     if (amount <= 0) return // Prevent invalid cashback
 
@@ -48,7 +44,7 @@ export function WalletProvider({ children }) {
 
   // ✅ Properly deducts amount for purchases
   const useWalletFunds = (amount, description, category) => {
-    if (amount <= 0 || balance < amount) return false // Prevent invalid deduction
+    if (balance < amount) return false // Prevent invalid deduction
 
     const newTransaction = {
       id: crypto.randomUUID(),

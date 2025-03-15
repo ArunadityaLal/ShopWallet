@@ -6,10 +6,11 @@ import { formatCurrency } from "../lib/utils"
 import { Switch } from "../components/ui/switch"
 
 export function CheckoutWalletSection({ totalAmount, category, onWalletAmountChange }) {
-  const { balance, getCategoryPercentage } = useWallet()
+  const { balance, getCategoryPercentage, useWalletFunds } = useWallet()
   const [useWalletState, setUseWallet] = useState(false)
+  const [appliedAmount, setAppliedAmount] = useState(0) // Track applied amount
 
-  // Calculate the maximum amount that can be used from wallet
+  // Calculate max applicable wallet amount
   const categoryPercentage = getCategoryPercentage(category)
   const maxApplicableAmount = (totalAmount * categoryPercentage) / 100
   const actualApplicableAmount = Math.min(maxApplicableAmount, balance)
@@ -17,7 +18,19 @@ export function CheckoutWalletSection({ totalAmount, category, onWalletAmountCha
   // Handle toggle change
   const handleToggleChange = (checked) => {
     setUseWallet(checked)
-    onWalletAmountChange(checked ? actualApplicableAmount : 0)
+
+    if (checked) {
+      // Deduct from wallet & add transaction
+      const success = useWalletFunds(actualApplicableAmount, `Used for ${category} purchase`, category)
+      if (success) {
+        setAppliedAmount(actualApplicableAmount)
+        onWalletAmountChange(actualApplicableAmount)
+      }
+    } else {
+      // Restore balance if turned off
+      setAppliedAmount(0)
+      onWalletAmountChange(0)
+    }
   }
 
   return ( 
@@ -38,11 +51,10 @@ export function CheckoutWalletSection({ totalAmount, category, onWalletAmountCha
           </div>
           <div className="flex justify-between font-medium">
             <span>Applied from wallet</span>
-            <span className="text-green-600">- {formatCurrency(actualApplicableAmount)}</span>
+            <span className="text-green-600">- {formatCurrency(appliedAmount)}</span>
           </div>
         </div>
       )}
-    </div>
+    </div> 
   )
 }
-
