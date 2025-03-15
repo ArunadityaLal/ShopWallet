@@ -16,7 +16,7 @@ export default function WalletPage() {
 
     addCashback(amount, `Cashback from order #${Math.floor(Math.random() * 10000)}`, randomCategory)
   }
-
+ 
   return (
     <div className="container mx-auto max-w-3xl py-8 px-4">
       <h1 className="text-2xl font-bold mb-6">My Wallet</h1>

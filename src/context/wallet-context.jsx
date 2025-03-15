@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 
 // Create the context with a default value
 const WalletContext = createContext(undefined)
-
+ 
 // Category percentages configuration
 const CATEGORY_PERCENTAGES = {
   "Electronics": 10, 
@@ -12,9 +12,9 @@ const CATEGORY_PERCENTAGES = {
   "Clothing": 7,
   default: 5, // Default percentage if categoryb not found
 } 
-
+  
 export function WalletProvider({ children }) {
-  const [balance, setBalance] = useState(0)
+  const [balance, setBalance] = useState(1000)
   const [transactions, setTransactions] = useState([])
 
   // Load wallet data from localStorage on component mount

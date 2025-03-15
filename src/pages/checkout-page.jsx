@@ -9,7 +9,7 @@ import { useCart } from "../context/CartContext";
 
 // Cashback percentage for this order
 const ORDER_CASHBACK_PERCENTAGE = 5;
-
+ 
 export default function CheckoutPage() {
   const { cart, setCart } = useCart();
   const { useWalletFunds, addCashback, getCategoryPercentage } = useWallet();
@@ -32,6 +32,9 @@ export default function CheckoutPage() {
 
   // Calculate total after applying category discount and wallet funds
   const total = Math.max(0, subtotal - categoryDiscount - walletAmountToUse);
+
+  // Calculate cashback
+  const cashbackAmount = calculateCashback(total, ORDER_CASHBACK_PERCENTAGE);
 
   // Process wallet payment
   let walletPaymentResult = true;
@@ -58,8 +61,7 @@ export default function CheckoutPage() {
 
     if (!walletPaymentSuccess) return;
 
-    // Calculate and add cashback
-    const cashbackAmount = calculateCashback(total, ORDER_CASHBACK_PERCENTAGE);
+    // Add cashback
     addCashback(cashbackAmount, `Cashback from order #${Math.floor(Math.random() * 10000)}`, orderCategory);
 
     alert(`Order placed successfully! You earned ${formatCurrency(cashbackAmount)} cashback.`);
@@ -101,6 +103,10 @@ export default function CheckoutPage() {
                 <span>Category Discount ({categoryPercentage}%)</span>
                 <span>- {formatCurrency(categoryDiscount)}</span>
               </div>
+              <div className="flex justify-between mb-2 text-green-600">
+                <span>Cashback ({ORDER_CASHBACK_PERCENTAGE}%)</span>
+                <span>+ {formatCurrency(cashbackAmount)}</span>
+              </div>
               {walletAmountToUse > 0 && (
                 <div className="flex justify-between mb-2 text-green-600">
                   <span>Wallet Credit</span>
@@ -116,7 +122,7 @@ export default function CheckoutPage() {
 
           <div className="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
             <p className="text-green-800 font-medium">
-              You'll earn {formatCurrency(calculateCashback(total, ORDER_CASHBACK_PERCENTAGE))} cashback on this order!
+              You'll earn {formatCurrency(cashbackAmount)} cashback on this order!
             </p>
           </div>
         </div>

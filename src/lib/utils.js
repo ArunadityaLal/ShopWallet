@@ -9,7 +9,7 @@ export function formatCurrency(amount) {
       currency: "USD",
       minimumFractionDigits: 2,
     }).format(amount)
-  }
+  } 
 
   export function cn(...classes) {
     return classes.filter(Boolean).join(" ");
