@@ -28,11 +28,13 @@ export function TransactionHistory() {
           {transactions.map((transaction) => (
             <div key={transaction.id} className="flex items-center justify-between border-b pb-3">
               <div className="flex items-center gap-3">
-                {transaction.amount > 0 ? (
-                  <ArrowDownCircle className="h-8 w-8 text-green-500" />
+                {/* ✅ Correct arrow logic */}
+                {transaction.type === "cashback" ? (
+                  <ArrowDownCircle className="h-8 w-8 text-green-500" /> // 🟢 Cashback earned
                 ) : (
-                  <ArrowUpCircle className="h-8 w-8 text-red-500" />
+                  <ArrowUpCircle className="h-8 w-8 text-red-500" /> // 🔴 Deduction
                 )}
+                
                 <div>
                   <p className="font-medium">{transaction.description}</p>
                   <p className="text-sm text-gray-500">
@@ -52,4 +54,3 @@ export function TransactionHistory() {
     </div>
   )
 }
-

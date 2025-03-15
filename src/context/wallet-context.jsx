@@ -4,77 +4,64 @@ import { createContext, useContext, useEffect, useState } from "react"
 
 // Create the context with a default value
 const WalletContext = createContext(undefined)
- 
+
 // Category percentages configuration
 const CATEGORY_PERCENTAGES = {
-  "Electronics": 10, 
+  "Electronics": 10,
   "Grocery": 2,
   "Clothing": 7,
-  default: 5, // Default percentage if categoryb not found
-} 
-  
+  default: 5, // Default percentage if category not found
+}
+
 export function WalletProvider({ children }) {
-  const [balance, setBalance] = useState(1000)
+  const INITIAL_BALANCE = 1000 // ✅ Always reset balance to 1000 on reload
+  const [balance, setBalance] = useState(INITIAL_BALANCE)
   const [transactions, setTransactions] = useState([])
 
-  // Load wallet data from localStorage on component mount
+  // ✅ Reset wallet balance and clear transactions on page reload
   useEffect(() => {
-    const savedBalance = localStorage.getItem("wallet_balance")
-    const savedTransactions = localStorage.getItem("wallet_transactions")
-
-    if (savedBalance) {
-      setBalance(Number.parseFloat(savedBalance))
-    }
-
-    if (savedTransactions) {
-      setTransactions(JSON.parse(savedTransactions))
-    }
+    setBalance(INITIAL_BALANCE)
+    setTransactions([]) // ✅ Ensures transaction history is empty on reload
   }, [])
 
-  // Save wallet data to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("wallet_balance", balance.toString())
-    localStorage.setItem("wallet_transactions", JSON.stringify(transactions))
-  }, [balance, transactions])
-
-  // Add cashback to wallet
+  // ✅ Properly adds cashback to wallet
   const addCashback = (amount, description, category) => {
+    if (amount <= 0) return // Prevent invalid cashback
+
     const newTransaction = {
       id: crypto.randomUUID(),
       amount,
       type: "cashback",
       description,
-      date: new Date(),
+      date: new Date().toISOString(), // Ensure consistent date format
       category,
     }
 
-    setBalance((prev) => prev + amount)
-    setTransactions((prev) => [newTransaction, ...prev])
+    setBalance((prev) => prev + amount) // ✅ Increase balance
+    setTransactions((prev) => [newTransaction, ...prev]) // ✅ Add to history
   }
 
-  // Get the percentage limit for a category
+  // ✅ Get the percentage limit for a category
   const getCategoryPercentage = (category) => {
     return CATEGORY_PERCENTAGES[category] || CATEGORY_PERCENTAGES.default
   }
 
-  // Use wallet funds for a purchase
+  // ✅ Properly deducts amount for purchases
   const useWalletFunds = (amount, description, category) => {
-    // Check if user has enough balance
-    if (balance < amount) {
-      return false
-    }
+    if (amount <= 0 || balance < amount) return false // Prevent invalid deduction
 
     const newTransaction = {
       id: crypto.randomUUID(),
-      amount: -amount,
+      amount: -amount, // ✅ Deduction should be negative
       type: "purchase",
       description,
-      date: new Date(),
+      date: new Date().toISOString(),
       category,
     }
 
-    setBalance((prev) => prev - amount)
-    setTransactions((prev) => [newTransaction, ...prev])
+    setBalance((prev) => prev - amount) // ✅ Deduct balance
+    setTransactions((prev) => [newTransaction, ...prev]) // ✅ Add to history
+
     return true
   }
 
@@ -101,4 +88,3 @@ export function useWallet() {
   }
   return context
 }
-
