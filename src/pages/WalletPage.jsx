@@ -6,16 +6,16 @@ import { useWallet } from "../context/wallet-context"
 import { Button } from "../components/ui/button"
 
 export default function WalletPage() {
-  const { addCashback } = useWallet()
+  // const { addCashback } = useWallet()
 
   // Demo function to add test cashback (for demonstration purposes)
-  const addTestCashback = () => {
-    const amount = Math.floor(Math.random() * 20) + 5 // Random amount between 5 and 25
-    const categories = ["Electronics", "Clothing", "Grocery"]
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)]
+  // const addTestCashback = () => {
+  //   const amount = Math.floor(Math.random() * 20) + 5 // Random amount between 5 and 25
+  //   const categories = ["Electronics", "Clothing", "Grocery"]
+  //   const randomCategory = categories[Math.floor(Math.random() * categories.length)]
 
-    addCashback(amount, `Cashback from order #${Math.floor(Math.random() * 10000)}`, randomCategory)
-  }
+  //   addCashback(amount, `Cashback from order #${Math.floor(Math.random() * 10000)}`, randomCategory)
+  // }
  
   return (
     <div className="container mx-auto max-w-3xl py-8 px-4">

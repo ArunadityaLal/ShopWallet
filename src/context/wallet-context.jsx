@@ -21,21 +21,21 @@ export function WalletProvider({ children }) {
     setTransactions([]) 
   }, [])
 
-  const addCashback = (amount, description, category) => {
-    if (amount <= 0) return // Prevent invalid cashback
+  // const addCashback = (amount, description, category) => {
+  //   if (amount <= 0) return // Prevent invalid cashback
 
-    const newTransaction = {
-      id: crypto.randomUUID(),
-      amount,
-      type: "cashback",
-      description,
-      date: new Date().toISOString(), // Ensure consistent date format
-      category,
-    }
+  //   const newTransaction = {
+  //     id: crypto.randomUUID(),
+  //     amount,
+  //     type: "cashback",
+  //     description,
+  //     date: new Date().toISOString(), // Ensure consistent date format
+  //     category,
+  //   }
 
-    setBalance((prev) => prev + amount) //  Increase balance
-    setTransactions((prev) => [newTransaction, ...prev]) //  Add to history
-  }
+  //   setBalance((prev) => prev + amount) //  Increase balance
+  //   setTransactions((prev) => [newTransaction, ...prev]) //  Add to history
+  // }
 
   //  Get the percentage limit for a category
   const getCategoryPercentage = (category) => {
@@ -66,7 +66,6 @@ export function WalletProvider({ children }) {
       value={{
         balance,
         transactions,
-        addCashback,
         useWalletFunds,
         getCategoryPercentage,
       }}

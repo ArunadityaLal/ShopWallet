@@ -46,7 +46,7 @@ export function CheckoutWalletSection({ totalAmount, category, onWalletAmountCha
       {useWalletState && (
         <div className="bg-gray-50 p-3 rounded-md">
           <div className="flex justify-between text-sm mb-1">
-            <span>Category Limit ({categoryPercentage}%)</span>
+            <span> Limit ({categoryPercentage}%)</span>
             <span>{formatCurrency(maxApplicableAmount)}</span>
           </div>
           <div className="flex justify-between font-medium">

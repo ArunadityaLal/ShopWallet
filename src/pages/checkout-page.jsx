@@ -61,10 +61,10 @@ export default function CheckoutPage() {
     if (!walletPaymentSuccess) return;
 
     // Add cashback
-    addCashback(cashbackAmount, `Cashback from order #${Math.floor(Math.random() * 10000)}`, orderCategory);
+    // addCashback(cashbackAmount, `Cashback from order #${Math.floor(Math.random() * 10000)}`, orderCategory);
 
-    alert(`Order placed successfully! You earned ${formatCurrency(cashbackAmount)} cashback.`);
-
+    // alert(`Order placed successfully! You earned ${formatCurrency(cashbackAmount)} cashback.`);
+    alert(`Order placed successfully!`);
     setCart([]);
   };
 
@@ -98,19 +98,19 @@ export default function CheckoutPage() {
                 <span>{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between mb-2 text-blue-600">
-                <span>Category Discount ({categoryPercentage}%)</span>
+                <span>Cashback </span>{/*({categoryPercentage}%)*/}
                 <span>- {formatCurrency(categoryDiscount)}</span>
               </div>
               {/* <div className="flex justify-between mb-2 text-green-600">
                 <span>Cashback ({ORDER_CASHBACK_PERCENTAGE}%)</span>
                 <span>+ {formatCurrency(cashbackAmount)}</span>
               </div> */}
-              {walletAmountToUse > 0 && (
+              {/* {walletAmountToUse > 0 && (
                 <div className="flex justify-between mb-2 text-green-600">
                   <span>Wallet Credit</span>
                   <span>- {formatCurrency(walletAmountToUse)}</span>
                 </div>
-              )}
+              )} */}
               <div className="flex justify-between font-bold text-lg mt-4">
                 <span>Total</span>
                 <span>{formatCurrency(total)}</span>
@@ -118,11 +118,11 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          <div className="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
+          {/* <div className="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
             <p className="text-green-800 font-medium">
               You'll earn {formatCurrency(cashbackAmount)} cashback on this order!
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="md:col-span-2">
