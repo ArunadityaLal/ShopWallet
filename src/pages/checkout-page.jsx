@@ -7,9 +7,8 @@ import { calculateCashback, formatCurrency } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import { useCart } from "../context/CartContext";
 
-// Cashback percentage for this order
 const ORDER_CASHBACK_PERCENTAGE = 5;
- 
+  
 export default function CheckoutPage() {
   const { cart, setCart } = useCart();
   const { useWalletFunds, addCashback, getCategoryPercentage } = useWallet();
@@ -66,7 +65,6 @@ export default function CheckoutPage() {
 
     alert(`Order placed successfully! You earned ${formatCurrency(cashbackAmount)} cashback.`);
 
-    // Clear cart after successful checkout
     setCart([]);
   };
 
@@ -103,10 +101,10 @@ export default function CheckoutPage() {
                 <span>Category Discount ({categoryPercentage}%)</span>
                 <span>- {formatCurrency(categoryDiscount)}</span>
               </div>
-              <div className="flex justify-between mb-2 text-green-600">
+              {/* <div className="flex justify-between mb-2 text-green-600">
                 <span>Cashback ({ORDER_CASHBACK_PERCENTAGE}%)</span>
                 <span>+ {formatCurrency(cashbackAmount)}</span>
-              </div>
+              </div> */}
               {walletAmountToUse > 0 && (
                 <div className="flex justify-between mb-2 text-green-600">
                   <span>Wallet Credit</span>

@@ -7,7 +7,7 @@ import CheckoutPage from "./pages/checkout-page";
 import { useCart } from "./context/CartContext"; 
 
 function App() {
-  const { cart,isCartOpen } = useCart(); // ✅ Now useCart() is valid
+  const { cart,isCartOpen } = useCart(); 
   return (
     <div className="min-h-screen bg-gray-50">
       <Router>
@@ -22,7 +22,7 @@ function App() {
           }
           <Route path = "*" element = {<HomePage />} />
         </Routes>
-        {isCartOpen && <CartModal />} {/* ✅ Show CartModal when cart is open */}
+        {isCartOpen && <CartModal />} 
       </Router>
     </div>
   );

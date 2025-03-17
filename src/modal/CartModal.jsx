@@ -1,7 +1,7 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { XCircle } from "lucide-react";
+import { XCircle } from "lucide-react"; 
 
 const CartModal = () => {
   const { cart, setCart, setCartOpen, addToCart } = useCart();

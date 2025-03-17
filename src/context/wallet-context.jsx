@@ -33,30 +33,30 @@ export function WalletProvider({ children }) {
       category,
     }
 
-    setBalance((prev) => prev + amount) // ✅ Increase balance
-    setTransactions((prev) => [newTransaction, ...prev]) // ✅ Add to history
+    setBalance((prev) => prev + amount) //  Increase balance
+    setTransactions((prev) => [newTransaction, ...prev]) //  Add to history
   }
 
-  // ✅ Get the percentage limit for a category
+  //  Get the percentage limit for a category
   const getCategoryPercentage = (category) => {
     return CATEGORY_PERCENTAGES[category] || CATEGORY_PERCENTAGES.default
   }
 
-  // ✅ Properly deducts amount for purchases
+  //  Properly deducts amount for purchases
   const useWalletFunds = (amount, description, category) => {
     if (balance < amount) return false // Prevent invalid deduction
 
     const newTransaction = {
       id: crypto.randomUUID(),
-      amount: -amount, // ✅ Deduction should be negative
+      amount: -amount, //  Deduction should be negative
       type: "purchase",
       description,
       date: new Date().toISOString(),
       category,
     }
 
-    setBalance((prev) => prev - amount) // ✅ Deduct balance
-    setTransactions((prev) => [newTransaction, ...prev]) // ✅ Add to history
+    setBalance((prev) => prev - amount) //  Deduct balance
+    setTransactions((prev) => [newTransaction, ...prev]) //  Add to history
 
     return true
   }
