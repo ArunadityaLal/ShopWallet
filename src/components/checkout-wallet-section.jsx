@@ -15,7 +15,7 @@ export function CheckoutWalletSection({ totalAmount, category, onWalletAmountCha
 
   // Calculate max applicable wallet amount
   const categoryPercentage = getCategoryPercentage(category)
-  const maxApplicableAmount = (totalAmount * categoryPercentage) / 100
+  const maxApplicableAmount = (totalAmount ) / 10
   const actualApplicableAmount = Math.min(maxApplicableAmount, balance)
 
   useEffect(() => {
