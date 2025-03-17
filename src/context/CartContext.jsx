@@ -6,7 +6,7 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setCartOpen] = useState(false);
 
-  const addToCart = (item) => {
+  const addToCart = (item) => { 
     setCart((prevCart) => {
       return prevCart.map((cartItem) =>
         cartItem.id === item.id
@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
           : cartItem
       ).concat(prevCart.some(cartItem => cartItem.id === item.id) ? [] : [{ ...item, quantity: 1 }]);
     });
-
+ 
     // Show temporary "Item Added to Cart" notification
     const toast = document.createElement("div");
     toast.innerText = "Item Added to Cart";
