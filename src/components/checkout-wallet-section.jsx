@@ -15,7 +15,7 @@ export function CheckoutWalletSection({ totalAmount, category, onWalletAmountCha
   const maxApplicableAmount = (totalAmount * categoryPercentage) / 100
   const actualApplicableAmount = Math.min(maxApplicableAmount, balance)
 
-  // Handle toggle change
+  // Handle toggle change 
   const handleToggleChange = (checked) => {
     setUseWallet(checked)
 

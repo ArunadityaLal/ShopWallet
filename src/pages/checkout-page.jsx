@@ -30,7 +30,7 @@ export default function CheckoutPage() {
   const categoryDiscount = (subtotal * categoryPercentage) / 100;
 
   // Calculate total after applying category discount and wallet funds
-  const total = Math.max(0, subtotal - categoryDiscount - walletAmountToUse);
+  const total = Math.max(0, subtotal  - walletAmountToUse);
 
   // Calculate cashback
   const cashbackAmount = calculateCashback(total, ORDER_CASHBACK_PERCENTAGE);
@@ -97,20 +97,21 @@ export default function CheckoutPage() {
                 <span>Subtotal</span>
                 <span>{formatCurrency(subtotal)}</span>
               </div>
-              <div className="flex justify-between mb-2 text-blue-600">
-                <span>Cashback </span>{/*({categoryPercentage}%)*/}
+              {/*<div className="flex justify-between mb-2 text-blue-600">
+                <span>Cashback </span>{/*({categoryPercentage}%)
                 <span>- {formatCurrency(categoryDiscount)}</span>
-              </div>
+              </div>*/}
+
               {/* <div className="flex justify-between mb-2 text-green-600">
                 <span>Cashback ({ORDER_CASHBACK_PERCENTAGE}%)</span>
                 <span>+ {formatCurrency(cashbackAmount)}</span>
               </div> */}
-              {/* {walletAmountToUse > 0 && (
+               {walletAmountToUse > 0 && (
                 <div className="flex justify-between mb-2 text-green-600">
-                  <span>Wallet Credit</span>
+                  <span>Cashback</span>
                   <span>- {formatCurrency(walletAmountToUse)}</span>
                 </div>
-              )} */}
+              )} 
               <div className="flex justify-between font-bold text-lg mt-4">
                 <span>Total</span>
                 <span>{formatCurrency(total)}</span>
